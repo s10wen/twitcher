@@ -32,17 +32,18 @@
       },
     "default_popup": "popup.html"
   },
-  "web_accessible_resources": [
-    "loader.gif"
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": ["content.js"]
+    }
   ],
   "permissions": [
     "cookies",
     "storage",
     "tabs",
     "http://twitter.com/*",
-    "https://twitter.com/*",
-    "https://api.twitter.com/*",
-    "http://*.twimg.com/*"
+    "https://twitter.com/*"
   ],
    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }
