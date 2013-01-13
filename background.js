@@ -28,7 +28,6 @@ function saveAccounts() {
 }
 
 function switchAccount(uid) {
-	console.log('switching');
 	chrome.cookies.set({
 		url: 'https://twitter.com',
 		name: COOKIE_TOKEN,
@@ -50,9 +49,7 @@ function switchAccount(uid) {
 }
 
 function removeAccount(uid) {
-	console.log('DELETING' + uid)
 	if (accounts[uid]) {
-		console.log('in');
 		delete accounts[uid];
 		saveAccounts();
 	}
@@ -67,7 +64,6 @@ function saveCurrentUser(currentUser, callback) {
 				img: currentUser.img,
 				token: cookie.value
 			}
-			console.log(accounts);
 			saveAccounts();
 			currentAccount = accounts[currentUser.uid];
 		}
