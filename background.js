@@ -75,27 +75,36 @@ function saveCurrentUser(currentUser, callback) {
 	})
 }
 
+function getAccounts(callback) {
+	chrome.storage.sync.get('accounts', function(rawAccounts){
+		if (rawAccounts.accounts && rawAccounts.accounts.length) {
+			accounts = JSON.parse(rawAccounts.accounts);
+		}
+
+		callback(accounts);
+	});
+}
+
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
 	if (sender.id !== window.location.host) return; //Not from us
 
 	if (request.type === 'getAccounts') {
-		//Get they accounts as requested
-		chrome.storage.sync.get('accounts', function(rawAccounts){
-			if (rawAccounts.accounts && rawAccounts.accounts.length) {
-				accounts = JSON.parse(rawAccounts.accounts);
-			}
-
-			sendResponse(accounts);
-		});
+		getAccounts(sendResponse);
 	} else if (request.type === 'switchAccount') {
 		switchAccount(request.uid);
 	} else if (request.type === 'removeAccount') {
 		removeAccount(request.uid);
 		sendResponse(accounts);
 	} else if (request.type === 'currentUser') {
-		console.log('saving');
-		saveCurrentUser(request.currentUser, sendResponse);
+		/*
+		 * Saving the current user writes directly into the gloabl accounts object
+		 * and saves this so we make sure we have the latest version before doing
+		 * so.
+		 */
+		getAccounts(function() {
+			saveCurrentUser(request.currentUser, sendResponse);
+		});
 	}
 
 	return true;
