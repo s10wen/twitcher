@@ -1,6 +1,6 @@
 {
   "name": "Twitcher - Twitter Account Switcher",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "manifest_version": 2,
   "description": "Twitter Account Switcher",
   "background": { "scripts": ["background.js"] },
@@ -8,13 +8,6 @@
     "16": "img/flock16.png",
     "48": "img/flock48.png",
     "128": "img/flock128.png"
-  },
-  "page_action": {
-    "default_icon": {
-      "19": "img/flock19.png",
-      "38": "img/flock38.png"
-      },
-    "default_popup": "popup.html"
   },
   "content_scripts": [
     {

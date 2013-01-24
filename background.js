@@ -106,14 +106,6 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 	return true;
 });
 
-
-// Listen for any changes to the URL of any tab.
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-	if (tab.url.match(/^http(s|)\:\/\/(www|)twitter.com(.*)/i)) {
-		chrome.pageAction.show(tabId);
-	}
-});
-
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-17516578-20']);
 _gaq.push(['_trackPageview']);
